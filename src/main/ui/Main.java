@@ -15,7 +15,7 @@ public class Main {
 
 
         while (true) {
-            System.out.println("Would you like to: [1] add a to do list item, [2] cross off an item, [3] show your list");
+            System.out.println("Would you like to: [1] add a to do list item, [2] cross off an item");
             userChoice = scanner.nextLine();
             System.out.println("You selected " + userChoice);
 
@@ -25,14 +25,11 @@ public class Main {
                 Item newItem = new Item();
                 newItem.setItemText(itemText);
                 myToDoList.addToItems(newItem);
-            }
-            if (userChoice.equals("2")) {
+            } else {
                 //need to make a getter for items
                 //System.out.println(ToDoList.getItems());
                 System.out.println("Which item would you like to check off?");
                 //create method in Item that is a setter for isCheckedOff
-            } else {
-                //System.out.println(ToDoList.getItems());
             }
         }
     }
