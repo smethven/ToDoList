@@ -59,19 +59,19 @@ public class ItemTest {
 
     @Test
     public void setNoCategory() {
-        i.setItemText("");
+        i.setCategory("");
         assertEquals("", i.getCategory());
     }
 
     @Test
     public void setLittleCategory() {
-        i.setItemText("a");
+        i.setCategory("a");
         assertEquals("a", i.getCategory());
     }
 
     @Test
     public void setLotsCategory() {
-        i.setItemText("blah blah blah");
+        i.setCategory("blah blah blah");
         assertEquals("blah blah blah", i.getCategory());
     }
 
@@ -87,15 +87,39 @@ public class ItemTest {
         assertTrue(i.isCheckedOff());
     }
 
-    //TEST CASES FOR get item text
-    // TODO: empty string
-    // TODO: single character
-    // TODO: multicharacter
+    @Test
+    public void getNoTextTest() {
+        i.setItemText("");
+        assertEquals("", i.getItemText());
+    }
 
+    @Test
+    public void getLittleTextTest() {
+        i.setItemText("a");
+        assertEquals("a", i.getItemText());
+    }
+    @Test
+    public void getLotsTextTest() {
+        i.setItemText("blah blah blah");
+        assertEquals("blah blah blah", i.getItemText());
+    }
 
+    @Test
+    public void getNoCategoryTest() {
+       i.setCategory("");
+       assertEquals("", i.getCategory());
+    }
 
-    //test cases for get category
-    // TODO: empty string
-    // TODO: single character
-    // TODO: multicharacter
+    @Test
+    public void getLittleCategoryTest() {
+        i.setCategory("a");
+        assertEquals("a", i.getCategory());
+    }
+
+    @Test
+    public void getLotsCategoryTest() {
+        i.setCategory("blah blah blah");
+        assertEquals("blah blah blah", i.getCategory());
+    }
+
 }

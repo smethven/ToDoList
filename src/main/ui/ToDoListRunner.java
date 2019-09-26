@@ -10,15 +10,12 @@ public class ToDoListRunner {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ToDoList myToDoList = new ToDoList();
-        //String userChoice = "";
-
 
         while (true) {
-          //  System.out.println("Would you like to: [1] add a to do list item, [2] cross off an item");
-            //userChoice = scanner.nextLine();
-            //System.out.println("You selected " + userChoice);
+            String choice = askUser();
+            System.out.println("You selected " + choice);
 
-            if (askUser().equals("1")) {
+            if (choice.equals("1")) {
                 System.out.println("Enter item text");
                 String itemText = scanner.nextLine();
                 Item newItem = new Item();
@@ -30,13 +27,12 @@ public class ToDoListRunner {
             }
         }
     }
-//TODO: create helpers and setup
 
     private static String askUser() {
+        Scanner scanner = new Scanner(System.in);
         String userChoice = "";
         System.out.println("Would you like to: [1] add a to do list item, [2] cross off an item");
         userChoice = scanner.nextLine();
-        System.out.println("You selected " + userChoice);
         return userChoice;
     }
 

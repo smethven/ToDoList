@@ -37,5 +37,16 @@ public class ToDoList {
         return counter;
     }
 
+    // MODIFIES: this and Item object
+    // EFFECTS: checks off Item with given itemText
+    public void checkOffItemWithText(String text) {
+        for (Item i : items) {
+            if (i.getItemText() == text) {
+                i.checkOffItem();
+            }
+        }
+
+    }
+
 
 }
