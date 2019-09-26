@@ -152,10 +152,7 @@ public class ToDoListTest {
         tdl.addItem(i9);
         assertEquals(9, tdl.howManyLeftToDo());
     }
-
-
-    //TEST CASES FOR CHECK OFF ITEM WITH TEXT
-    //TODO: end of list
+    
 
     @Test
     public void checkOffItemsWithSameTextTest() {
