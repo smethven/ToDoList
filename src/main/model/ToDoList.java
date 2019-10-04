@@ -62,7 +62,7 @@ public class ToDoList implements Loadable, Saveable {
     public void load(String file) throws IOException {
         List<String> lines = Files.readAllLines(Paths.get(file));
         for (String line : lines) {
-            ArrayList<String> partsOfLine = splitOnSpace(line);
+            ArrayList<String> partsOfLine = splitOnSlash(line);
             Item i = new Item();
             if (partsOfLine.get(0).equals("true")) {
                 i.checkOffItem();
@@ -78,15 +78,15 @@ public class ToDoList implements Loadable, Saveable {
     public void save() throws FileNotFoundException, UnsupportedEncodingException {
         PrintWriter writer = new PrintWriter("outputfile.txt","UTF-8");
         for (Item i : this.items) {
-            String line = Boolean.toString(i.isCheckedOff()) + " " + i.getItemText() + " " + i.getCategory();
+            String line = Boolean.toString(i.isCheckedOff()) + "/" + i.getItemText() + "/" + i.getCategory();
             writer.println(line);
         }
         writer.close();
     }
 
-    //Taken from FileReaderWriter
-    public static ArrayList<String> splitOnSpace(String line) {
-        String[] splits = line.split(" ", 3);
+    //Adapted from FileReaderWriter
+    public static ArrayList<String> splitOnSlash(String line) {
+        String[] splits = line.split("/", 3);
         return new ArrayList<>(Arrays.asList(splits));
     }
 }

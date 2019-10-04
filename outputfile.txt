@@ -1,1 +1,3 @@
-false j general
+false/run/health
+true/homework/school
+false/buy gift/general

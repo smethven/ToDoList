@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -239,9 +240,9 @@ public class ToDoListTest {
         assertTrue(i2.isCheckedOff());
         assertFalse(i3.isCheckedOff());
         assertTrue(i4.isCheckedOff());
-        assertEquals("walkdog", i1.getItemText());
+        assertEquals("walk dog", i1.getItemText());
         assertEquals("workout", i2.getItemText());
-        assertEquals("makebed", i3.getItemText());
+        assertEquals("make bed", i3.getItemText());
         assertEquals("homework", i4.getItemText());
         assertEquals("general", i1.getCategory());
         assertEquals("health", i2.getCategory());
@@ -256,14 +257,18 @@ public class ToDoListTest {
         i2.setItemText("homework");
         i2.setCategory("school");
         i2.checkOffItem();
-        i3.setItemText("buygift");
+        i3.setItemText("buy gift");
         i3.setCategory("general");
         tdl.addItem(i1);
         tdl.addItem(i2);
         tdl.addItem(i3);
         tdl.save();
         List<String> lines = Files.readAllLines(Paths.get("outputfile.txt"));
-        assertEquals("false run health true homework school false buygift general" lines);
+        List<String> expected = new ArrayList<>();
+        expected.add("false/run/health");
+        expected.add("true/homework/school");
+        expected.add("false/buy gift/general");
+        assertEquals(expected, lines);
     }
 
 }
