@@ -4,6 +4,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ToDoListTest {
@@ -152,7 +159,7 @@ public class ToDoListTest {
         tdl.addItem(i9);
         assertEquals(9, tdl.howManyLeftToDo());
     }
-    
+
 
     @Test
     public void checkOffItemsWithSameTextTest() {
@@ -218,6 +225,45 @@ public class ToDoListTest {
         i9.setItemText("a");
         tdl.checkOffItemWithText("a");
         assertTrue(i9.isCheckedOff());
+    }
+
+    @Test
+    public void loadTest() throws IOException {
+        tdl.load("./data/loadTestData");
+        i1 = tdl.getItems().get(0);
+        i2 = tdl.getItems().get(1);
+        i3 = tdl.getItems().get(2);
+        i4 = tdl.getItems().get(3);
+        assertEquals(4, tdl.getItems().size());
+        assertFalse(i1.isCheckedOff());
+        assertTrue(i2.isCheckedOff());
+        assertFalse(i3.isCheckedOff());
+        assertTrue(i4.isCheckedOff());
+        assertEquals("walkdog", i1.getItemText());
+        assertEquals("workout", i2.getItemText());
+        assertEquals("makebed", i3.getItemText());
+        assertEquals("homework", i4.getItemText());
+        assertEquals("general", i1.getCategory());
+        assertEquals("health", i2.getCategory());
+        assertEquals("cleaning", i3.getCategory());
+        assertEquals("school", i4.getCategory());
+    }
+
+    @Test
+    public void saveTest() throws IOException {
+        i1.setItemText("run");
+        i1.setCategory("health");
+        i2.setItemText("homework");
+        i2.setCategory("school");
+        i2.checkOffItem();
+        i3.setItemText("buygift");
+        i3.setCategory("general");
+        tdl.addItem(i1);
+        tdl.addItem(i2);
+        tdl.addItem(i3);
+        tdl.save();
+        List<String> lines = Files.readAllLines(Paths.get("outputfile.txt"));
+        assertEquals("false run health true homework school false buygift general" lines);
     }
 
 }
