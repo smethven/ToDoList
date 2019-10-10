@@ -4,8 +4,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import model.Item;
-import model.Loadable;
+import model.RegularItem;
 import model.ToDoList;
+import model.UrgentItem;
 
 public class ToDoListRunner {
 
@@ -47,10 +48,18 @@ public class ToDoListRunner {
 
     private static Item itemWithText() {
         Scanner scanner = new Scanner(System.in);
+        Item newItem;
+        System.out.println("[1] Regular Item or [2] Urgent Item?");
+        String choice = scanner.nextLine();
         System.out.println("Enter item text");
         String itemText = scanner.nextLine();
-        Item newItem = new Item();
-        newItem.setItemText(itemText);
+        if (choice.equals("1")) {
+            newItem = new RegularItem();
+            newItem.setItemText(itemText);
+        } else {
+            newItem = new UrgentItem();
+            newItem.setItemText(itemText);
+        }
         return newItem;
     }
 

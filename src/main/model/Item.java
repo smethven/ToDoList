@@ -1,10 +1,9 @@
 package model;
 
-
-public class Item {
-    private boolean status; //true for checked off- false for not checked off
-    private String itemText;
-    private String category;
+public abstract class Item {
+    protected boolean status; //true for checked off- false for not checked off
+    protected String itemText;
+    protected String category;
 
     // Constructor
     public Item() {
@@ -17,9 +16,7 @@ public class Item {
 
     // MODIFIES: this
     // EFFECTS: changes this to checked off (true)
-    public void checkOffItem() {
-        this.status = true;
-    }
+    public abstract void checkOffItem();
 
     // MODIFIES: this
     // EFFECTS: changes this to unchecked off (false)
@@ -55,6 +52,4 @@ public class Item {
     public String getCategory() {
         return this.category;
     }
-
-
 }

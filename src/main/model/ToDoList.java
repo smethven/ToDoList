@@ -49,7 +49,7 @@ public class ToDoList implements Loadable, Saveable {
     // EFFECTS: checks off Item with given itemText
     public void checkOffItemWithText(String text) {
         for (Item i : items) {
-            if (i.getItemText() == text) {
+            if (i.getItemText().equals(text)) {
                 i.checkOffItem();
             }
         }
@@ -63,7 +63,12 @@ public class ToDoList implements Loadable, Saveable {
         List<String> lines = Files.readAllLines(Paths.get(file));
         for (String line : lines) {
             ArrayList<String> partsOfLine = splitOnSlash(line);
-            Item i = new Item();
+            Item i;
+            if (partsOfLine.get(2).contains("URGENT!: ")) {
+                i = new UrgentItem();
+            } else {
+                i = new RegularItem();
+            }
             if (partsOfLine.get(0).equals("true")) {
                 i.checkOffItem();
             }

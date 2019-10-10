@@ -1,3 +1,4 @@
+import model.RegularItem;
 import model.Item;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,7 +9,7 @@ public class ItemTest {
 
     @BeforeEach
     public void setup() {
-        i = new Item();
+        i = new RegularItem();
     }
 
     @Test

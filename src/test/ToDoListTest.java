@@ -1,12 +1,10 @@
 import model.Item;
+import model.RegularItem;
 import model.ToDoList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.omg.CORBA.PUBLIC_MEMBER;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -29,15 +27,15 @@ public class ToDoListTest {
     @BeforeEach
     public void setup() {
         tdl = new ToDoList();
-        i1 = new Item();
-        i2 = new Item();
-        i3 = new Item();
-        i4 = new Item();
-        i5 = new Item();
-        i6 = new Item();
-        i7 = new Item();
-        i8 = new Item();
-        i9 = new Item();
+        i1 = new RegularItem();
+        i2 = new RegularItem();
+        i3 = new RegularItem();
+        i4 = new RegularItem();
+        i5 = new RegularItem();
+        i6 = new RegularItem();
+        i7 = new RegularItem();
+        i8 = new RegularItem();
+        i9 = new RegularItem();
     }
 
 
@@ -235,19 +233,24 @@ public class ToDoListTest {
         i2 = tdl.getItems().get(1);
         i3 = tdl.getItems().get(2);
         i4 = tdl.getItems().get(3);
-        assertEquals(4, tdl.getItems().size());
+        i5 = tdl.getItems().get(4);
+        assertEquals(5, tdl.getItems().size());
+        assertEquals("URGENT!: general", i5.getCategory());
         assertFalse(i1.isCheckedOff());
         assertTrue(i2.isCheckedOff());
         assertFalse(i3.isCheckedOff());
         assertTrue(i4.isCheckedOff());
+        assertFalse(i5.isCheckedOff());
         assertEquals("walk dog", i1.getItemText());
         assertEquals("workout", i2.getItemText());
         assertEquals("make bed", i3.getItemText());
         assertEquals("homework", i4.getItemText());
+        assertEquals("file taxes", i5.getItemText());
         assertEquals("general", i1.getCategory());
         assertEquals("health", i2.getCategory());
         assertEquals("cleaning", i3.getCategory());
         assertEquals("school", i4.getCategory());
+
     }
 
     @Test
