@@ -1,3 +1,4 @@
+import exceptions.TooManyThingsToDo;
 import model.Item;
 import model.RegularItem;
 import model.ToDoList;
@@ -10,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import static model.ToDoList.LIST_CAPACITY;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ToDoListTest {
@@ -38,19 +40,84 @@ public class ToDoListTest {
         i9 = new RegularItem();
     }
 
+    public void addNineWithTryCatch() {
+        try {
+            tdl.addItem(i1);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        try {
+            tdl.addItem(i2);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        try {
+            tdl.addItem(i3);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        try {
+            tdl.addItem(i4);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        try {
+            tdl.addItem(i5);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        try {
+            tdl.addItem(i6);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        try {
+            tdl.addItem(i7);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        try {
+            tdl.addItem(i8);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        try {
+            tdl.addItem(i9);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+
+    }
+
 
     @Test
     public void addOneItemTest() {
-        tdl.addItem(i1);
+        try {
+            tdl.addItem(i1);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
         assertEquals(1, tdl.getItems().size());
         assertTrue(tdl.getItems().contains(i1));
     }
 
     @Test
     public void addThreeItemsTest() {
-        tdl.addItem(i1);
-        tdl.addItem(i2);
-        tdl.addItem(i3);
+        try {
+            tdl.addItem(i1);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        try {
+            tdl.addItem(i2);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        try {
+            tdl.addItem(i3);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
         assertEquals(3, tdl.getItems().size());
         assertTrue(tdl.getItems().contains(i1));
         assertTrue(tdl.getItems().contains(i2));
@@ -59,15 +126,7 @@ public class ToDoListTest {
 
     @Test
     public void addManyItemsTest() {
-        tdl.addItem(i1);
-        tdl.addItem(i2);
-        tdl.addItem(i3);
-        tdl.addItem(i4);
-        tdl.addItem(i5);
-        tdl.addItem(i6);
-        tdl.addItem(i7);
-        tdl.addItem(i8);
-        tdl.addItem(i9);
+        addNineWithTryCatch();
         assertEquals(9, tdl.getItems().size());
         assertTrue(tdl.getItems().contains(i1));
         assertTrue(tdl.getItems().contains(i2));
@@ -83,20 +142,37 @@ public class ToDoListTest {
 
     @Test
     public void getEmptyListTest() {
-        assertEquals(0,tdl.getItems().size());
+        assertEquals(0, tdl.getItems().size());
     }
 
     @Test
     public void getOneItemTest() {
-        tdl.addItem(i1);
+        try {
+            tdl.addItem(i1);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
         assertEquals(1, tdl.getItems().size());
         assertTrue(tdl.getItems().contains(i1));
     }
+
     @Test
     public void getThreeItemsTest() {
-        tdl.addItem(i1);
-        tdl.addItem(i2);
-        tdl.addItem(i3);
+        try {
+            tdl.addItem(i1);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        try {
+            tdl.addItem(i2);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        try {
+            tdl.addItem(i3);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
         assertEquals(3, tdl.getItems().size());
         assertTrue(tdl.getItems().contains(i1));
         assertTrue(tdl.getItems().contains(i2));
@@ -105,15 +181,7 @@ public class ToDoListTest {
 
     @Test
     public void getManyItemsTest() {
-        tdl.addItem(i1);
-        tdl.addItem(i2);
-        tdl.addItem(i3);
-        tdl.addItem(i4);
-        tdl.addItem(i5);
-        tdl.addItem(i6);
-        tdl.addItem(i7);
-        tdl.addItem(i8);
-        tdl.addItem(i9);
+        addNineWithTryCatch();
         assertEquals(9, tdl.getItems().size());
         assertTrue(tdl.getItems().contains(i1));
         assertTrue(tdl.getItems().contains(i2));
@@ -133,44 +201,44 @@ public class ToDoListTest {
 
     @Test
     public void oneLeftTest() {
-        tdl.addItem(i1);
+        try {
+            tdl.addItem(i1);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
         assertEquals(1, tdl.howManyLeftToDo());
     }
 
     @Test
     public void threeLeftTest() {
-        tdl.addItem(i1);
-        tdl.addItem(i2);
-        tdl.addItem(i3);
+        try {
+            tdl.addItem(i1);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        try {
+            tdl.addItem(i2);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        try {
+            tdl.addItem(i3);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
         assertEquals(3, tdl.howManyLeftToDo());
     }
 
     @Test
     public void manyLeftTest() {
-        tdl.addItem(i1);
-        tdl.addItem(i2);
-        tdl.addItem(i3);
-        tdl.addItem(i4);
-        tdl.addItem(i5);
-        tdl.addItem(i6);
-        tdl.addItem(i7);
-        tdl.addItem(i8);
-        tdl.addItem(i9);
+        addNineWithTryCatch();
         assertEquals(9, tdl.howManyLeftToDo());
     }
 
 
     @Test
     public void checkOffItemsWithSameTextTest() {
-        tdl.addItem(i1);
-        tdl.addItem(i2);
-        tdl.addItem(i3);
-        tdl.addItem(i4);
-        tdl.addItem(i5);
-        tdl.addItem(i6);
-        tdl.addItem(i7);
-        tdl.addItem(i8);
-        tdl.addItem(i9);
+        addNineWithTryCatch();
         i1.setItemText("a");
         i2.setItemText("a");
         tdl.checkOffItemWithText("a");
@@ -180,15 +248,7 @@ public class ToDoListTest {
 
     @Test
     public void checkOffFirstItem() {
-        tdl.addItem(i1);
-        tdl.addItem(i2);
-        tdl.addItem(i3);
-        tdl.addItem(i4);
-        tdl.addItem(i5);
-        tdl.addItem(i6);
-        tdl.addItem(i7);
-        tdl.addItem(i8);
-        tdl.addItem(i9);
+        addNineWithTryCatch();
         i1.setItemText("a");
         tdl.checkOffItemWithText("a");
         assertTrue(i1.isCheckedOff());
@@ -196,15 +256,7 @@ public class ToDoListTest {
 
     @Test
     public void checkOffMidItem() {
-        tdl.addItem(i1);
-        tdl.addItem(i2);
-        tdl.addItem(i3);
-        tdl.addItem(i4);
-        tdl.addItem(i5);
-        tdl.addItem(i6);
-        tdl.addItem(i7);
-        tdl.addItem(i8);
-        tdl.addItem(i9);
+        addNineWithTryCatch();
         i5.setItemText("a");
         tdl.checkOffItemWithText("a");
         assertTrue(i5.isCheckedOff());
@@ -212,15 +264,7 @@ public class ToDoListTest {
 
     @Test
     public void checkOffLastItem() {
-        tdl.addItem(i1);
-        tdl.addItem(i2);
-        tdl.addItem(i3);
-        tdl.addItem(i4);
-        tdl.addItem(i5);
-        tdl.addItem(i6);
-        tdl.addItem(i7);
-        tdl.addItem(i8);
-        tdl.addItem(i9);
+        addNineWithTryCatch();
         i9.setItemText("a");
         tdl.checkOffItemWithText("a");
         assertTrue(i9.isCheckedOff());
@@ -262,9 +306,21 @@ public class ToDoListTest {
         i2.checkOffItem();
         i3.setItemText("buy gift");
         i3.setCategory("general");
-        tdl.addItem(i1);
-        tdl.addItem(i2);
-        tdl.addItem(i3);
+        try {
+            tdl.addItem(i1);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        try {
+            tdl.addItem(i2);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        try {
+            tdl.addItem(i3);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
         tdl.save();
         List<String> lines = Files.readAllLines(Paths.get("outputfile.txt"));
         List<String> expected = new ArrayList<>();
@@ -272,6 +328,25 @@ public class ToDoListTest {
         expected.add("true/homework/school");
         expected.add("false/buy gift/general");
         assertEquals(expected, lines);
+    }
+
+    @Test
+    public void catchTooManyThingsToDo(){
+        for (int count=0; count < LIST_CAPACITY; count++) {
+            Item i = new RegularItem();
+            try {
+                tdl.addItem(i);
+            } catch (TooManyThingsToDo tooManyThingsToDo) {
+                fail();
+            }
+        }
+        assertEquals(LIST_CAPACITY, tdl.getItems().size());
+        Item i100 = new RegularItem();
+        try {
+            tdl.addItem(i100);
+            fail();
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+        }
     }
 
 }

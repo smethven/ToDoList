@@ -1,34 +1,52 @@
 package ui;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
+import exceptions.TooManyThingsToDo;
 import model.Item;
 import model.RegularItem;
 import model.ToDoList;
 import model.UrgentItem;
 
 public class ToDoListRunner {
+    private static ToDoList myToDoList = new ToDoList();
 
     public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        ToDoList myToDoList = new ToDoList();
         myToDoList.load("inputfile.txt");
+        startLoop();
+    }
 
+    private static void startLoop() {
         while (true) {
             String choice = tellUser();
-
             if (choice.equals("1")) {
-                myToDoList.addItem(itemWithText());
+                try {
+                    myToDoList.addItem(itemWithText());
+                } catch (TooManyThingsToDo tooManyThingsToDo) {
+                    System.out.println("You've got too much to do already! Check off some items");
+                    continue;
+                } finally {
+                    System.out.println("You can do this! Get to work checking off items");
+                }
             } else if (choice.equals("2")) {
-                System.out.println(myToDoList.getItems());
-                System.out.println("Which item would you like to check off?");
-                String itemText = scanner.nextLine();
-                myToDoList.checkOffItemWithText(itemText);
+                checkOffItem();
             } else {
-                myToDoList.save();
+                save();
                 break;
             }
+        }
+    }
+    
+    private static void save() {
+        try {
+            myToDoList.save();
+        } catch (FileNotFoundException e) {
+            System.out.println("The file could not be found");
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("System error");
         }
     }
 
@@ -46,6 +64,7 @@ public class ToDoListRunner {
         return choice;
     }
 
+
     private static Item itemWithText() {
         Scanner scanner = new Scanner(System.in);
         Item newItem;
@@ -61,6 +80,13 @@ public class ToDoListRunner {
             newItem.setItemText(itemText);
         }
         return newItem;
+    }
+
+    private static void checkOffItem() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Which item would you like to check off?");
+        String itemText = scanner.nextLine();
+        myToDoList.checkOffItemWithText(itemText);
     }
 
 }

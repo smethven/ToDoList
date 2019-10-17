@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.TooManyThingsToDo;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +14,7 @@ import java.util.List;
 
 public class ToDoList implements Loadable, Saveable {
     private ArrayList<Item> items;
+    public static final int LIST_CAPACITY = 100;
 
     // CONSTRUCTOR
     public ToDoList() {
@@ -22,7 +25,10 @@ public class ToDoList implements Loadable, Saveable {
 
     // MODIFIES: this
     // EFFECTS: adds given item to items
-    public void addItem(Item item) {
+    public void addItem(Item item) throws TooManyThingsToDo {
+        if (items.size() >= LIST_CAPACITY) {
+            throw new TooManyThingsToDo();
+        }
         items.add(item);
     }
 
@@ -69,12 +75,12 @@ public class ToDoList implements Loadable, Saveable {
             } else {
                 i = new RegularItem();
             }
-            if (partsOfLine.get(0).equals("true")) {
-                i.checkOffItem();
+            i.setUpLoadedItem(partsOfLine);
+            try {
+                this.addItem(i);
+            } catch (TooManyThingsToDo tooManyThingsToDo) {
+                System.out.println("The loaded list had too many items");
             }
-            i.setItemText(partsOfLine.get(1));
-            i.setCategory(partsOfLine.get(2));
-            this.addItem(i);
         }
     }
 

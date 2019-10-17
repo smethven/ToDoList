@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public abstract class Item {
     protected boolean status; //true for checked off- false for not checked off
     protected String itemText;
@@ -51,5 +53,15 @@ public abstract class Item {
     // EFFECTS: returns this items category
     public String getCategory() {
         return this.category;
+    }
+
+    //MODIFIES: this
+    //EFFECTS: sets up a loaded item with the correct fields
+    public void setUpLoadedItem(ArrayList<String> partsOfLine) {
+        if (partsOfLine.get(0).equals("true")) {
+            this.checkOffItem();
+        }
+        this.setItemText(partsOfLine.get(1));
+        this.setCategory(partsOfLine.get(2));
     }
 }
