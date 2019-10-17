@@ -14,8 +14,12 @@ import model.UrgentItem;
 public class ToDoListRunner {
     private static ToDoList myToDoList = new ToDoList();
 
-    public static void main(String[] args) throws IOException {
-        myToDoList.load("inputfile.txt");
+    public static void main(String[] args) {
+        try {
+            myToDoList.load("inputfile.txt");
+        } catch (IOException e) {
+            System.out.println("failed to load old list");
+        }
         startLoop();
     }
 
