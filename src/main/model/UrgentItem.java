@@ -8,8 +8,12 @@ public class UrgentItem extends Item {
 
     @Override
     public void checkOffItem() {
-        this.status = true;
-        System.out.println("Yay! Urgent item complete");
+        if (toDoList != null) {
+            toDoList.removeItem(this);
+            toDoList = null;
+            this.status = true;
+            System.out.println("Yay! Urgent item complete");
+        }
     }
 
     @Override

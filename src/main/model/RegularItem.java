@@ -8,8 +8,11 @@ public class RegularItem extends Item {
 
     @Override
     public void checkOffItem() {
-        this.status = true;
-        System.out.println("Good job!");
-
+        if (toDoList != null) {
+            toDoList.removeItem(this);
+            toDoList = null;
+            this.status = true;
+            System.out.println("Good job!");
+        }
     }
 }

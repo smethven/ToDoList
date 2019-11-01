@@ -8,58 +8,68 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ToDoList implements Loadable, Saveable {
-    private ArrayList<Item> items;
+    // Each item's key is it's item string
+    private Map<String, Item> items;
+
     public static final int LIST_CAPACITY = 100;
 
     // CONSTRUCTOR
     public ToDoList() {
-        items = new ArrayList<>();
+        items = new HashMap<>();
     }
 
     // SETTERS
 
     // MODIFIES: this
-    // EFFECTS: adds given item to items
+    // EFFECTS: adds given item to items with it's item string as its key
     public void addItem(Item item) throws TooManyThingsToDo {
-        if (items.size() >= LIST_CAPACITY) {
-            throw new TooManyThingsToDo();
+        if (!items.values().contains(item)) {
+            if (items.size() >= LIST_CAPACITY) {
+                throw new TooManyThingsToDo();
+            }
+            items.put(item.getItemText(), item);
+            item.uncheckItem();
         }
-        items.add(item);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: removes item from the items map, if item isn't found, does nothing
+    public void removeItem(Item item) {
+        if (items.values().contains(item)) {
+            items.remove(item.getItemText());
+            item.checkOffItem();
+        }
+
     }
 
     // GETTERS
 
-    // EFFECTS: returns the to do list's items
-    public ArrayList<Item> getItems() {
-        return this.items;
+    // EFFECTS: returns the to do list's items's keys
+    public Collection<String> getItemKeys() {
+        return items.keySet();
     }
 
+    public Collection<Item> getItemValues() {
+        return items.values();
+    }
 
-    // EFFECTS: returns the amount of unchecked items in the ToDoList
+    public Map<String, Item> getItems() {
+        return items;
+    }
+
+    // EFFECTS: returns the amount of items in the ToDoList
     public int howManyLeftToDo() {
-        int counter = 0;
-        for (Item i : items) {
-            if (i.isCheckedOff() == false) {
-                counter = counter + 1;
-            }
-        }
-        return counter;
+        return items.size();
     }
 
     // MODIFIES: this and Item object
     // EFFECTS: checks off Item with given itemText
     public void checkOffItemWithText(String text) {
-        for (Item i : items) {
-            if (i.getItemText().equals(text)) {
-                i.checkOffItem();
-            }
-        }
-
+        Item item = items.get(text);
+        item.checkOffItem();
     }
 
 
@@ -88,7 +98,7 @@ public class ToDoList implements Loadable, Saveable {
     @Override
     public void save() throws FileNotFoundException, UnsupportedEncodingException {
         PrintWriter writer = new PrintWriter("outputfile.txt","UTF-8");
-        for (Item i : this.items) {
+        for (Item i : items.values()) {
             String line = Boolean.toString(i.isCheckedOff()) + "/" + i.getItemText() + "/" + i.getCategory();
             writer.println(line);
         }

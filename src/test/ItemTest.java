@@ -1,3 +1,4 @@
+import exceptions.TooManyThingsToDo;
 import model.RegularItem;
 import model.Item;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,29 +15,56 @@ public class ItemTest {
 
     @Test
     public void checkOffUncheckedItemTest() {
-        i.uncheckItem();
+        try {
+            i.uncheckItem();
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        assertTrue(i.getToDoList()!=null);
         i.checkOffItem();
         assertTrue(i.isCheckedOff());
+        assertTrue(i.getToDoList()== null);
     }
 
     @Test
     public void checkOffCheckedOffItemTest() {
         i.checkOffItem();
+        assertTrue(i.getToDoList()==null);
         i.checkOffItem();
+        assertTrue(i.getToDoList()==null);
         assertTrue(i.isCheckedOff());
     }
 
     @Test
     public void uncheckUncheckedItemTest() {
-        i.uncheckItem();
-        i.uncheckItem();
+        try {
+            i.uncheckItem();
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        assertTrue(i.getToDoList()!=null);
+        assertTrue(i.getToDoList().getItemValues().contains(i));
+        try {
+            i.uncheckItem();
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        assertTrue(i.getToDoList()!=null);
+        assertTrue(i.getToDoList().getItemValues().contains(i));
         assertFalse(i.isCheckedOff());
     }
 
     @Test
     public void uncheckCheckedOffItemTest() {
         i.checkOffItem();
-        i.uncheckItem();
+        assertTrue(i.getToDoList()==null);
+        try {
+            i.uncheckItem();
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
+        assertTrue(i.getToDoList()!=null);
+        assertTrue(i.getToDoList().getItemValues().contains(i));
         assertFalse(i.isCheckedOff());
     }
 
@@ -78,7 +106,11 @@ public class ItemTest {
 
     @Test
     public void getUncheckedItemStatusTest() {
-        i.uncheckItem();
+        try {
+            i.uncheckItem();
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            fail();
+        }
         assertFalse(i.isCheckedOff());
     }
 
