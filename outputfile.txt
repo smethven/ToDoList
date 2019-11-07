@@ -1,2 +1,3 @@
-false/dance to the beat of your own drum/general
-true/get jiggy with it/general
+false/buy gift/general
+false/homework/school
+false/run/health

@@ -31,7 +31,7 @@ public class ToDoList implements Loadable, Saveable {
                 throw new TooManyThingsToDo();
             }
             items.put(item.getItemText(), item);
-            item.uncheckItem();
+            item.uncheckItem(this);
         }
     }
 

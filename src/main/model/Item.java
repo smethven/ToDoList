@@ -32,10 +32,10 @@ public abstract class Item {
 
     // MODIFIES: this
     // EFFECTS: changes this to unchecked off (false)
-    public void uncheckItem() throws TooManyThingsToDo {
+    public void uncheckItem(ToDoList tdl) throws TooManyThingsToDo {
         if (toDoList == null) {
             this.status = false;
-            toDoList = new ToDoList();
+            toDoList = tdl;
             toDoList.addItem(this);
         }
     }

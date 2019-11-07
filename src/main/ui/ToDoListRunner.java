@@ -27,14 +27,8 @@ public class ToDoListRunner {
         while (true) {
             String choice = tellUser();
             if (choice.equals("1")) {
-                try {
-                    myToDoList.addItem(itemWithText());
-                } catch (TooManyThingsToDo tooManyThingsToDo) {
-                    System.out.println("You've got too much to do already! Check off some items");
-                    continue;
-                } finally {
-                    System.out.println("You can do this! Get to work checking off items");
-                }
+                tryAddItem();
+                continue;
             } else if (choice.equals("2")) {
                 checkOffItem();
             } else {
@@ -43,7 +37,18 @@ public class ToDoListRunner {
             }
         }
     }
-    
+
+    private static void tryAddItem() {
+        try {
+            myToDoList.addItem(itemWithText());
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            System.out.println("You've got too much to do already! Check off some items");
+            return;
+        } finally {
+            System.out.println("You can do this! Get to work checking off items");
+        }
+    }
+
     private static void save() {
         try {
             myToDoList.save();
@@ -77,12 +82,24 @@ public class ToDoListRunner {
         System.out.println("Enter item text");
         String itemText = scanner.nextLine();
         if (choice.equals("1")) {
-            newItem = new RegularItem();
-            newItem.setItemText(itemText);
+            newItem = setupRegularItem(itemText);
         } else {
-            newItem = new UrgentItem();
-            newItem.setItemText(itemText);
+            newItem = setupUrgentItem(itemText);
         }
+        return newItem;
+    }
+
+    private static Item setupUrgentItem(String itemText) {
+        Item newItem;
+        newItem = new UrgentItem();
+        newItem.setItemText(itemText);
+        return newItem;
+    }
+
+    private static Item setupRegularItem(String itemText) {
+        Item newItem;
+        newItem = new RegularItem();
+        newItem.setItemText(itemText);
         return newItem;
     }
 

@@ -1,6 +1,7 @@
 import exceptions.TooManyThingsToDo;
 import model.RegularItem;
 import model.Item;
+import model.ToDoList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,8 +16,9 @@ public class ItemTest {
 
     @Test
     public void checkOffUncheckedItemTest() {
+        ToDoList tdl = new ToDoList();
         try {
-            i.uncheckItem();
+            i.uncheckItem(tdl);
         } catch (TooManyThingsToDo tooManyThingsToDo) {
             fail();
         }
@@ -37,15 +39,16 @@ public class ItemTest {
 
     @Test
     public void uncheckUncheckedItemTest() {
+        ToDoList tdl = new ToDoList();
         try {
-            i.uncheckItem();
+            i.uncheckItem(tdl);
         } catch (TooManyThingsToDo tooManyThingsToDo) {
             fail();
         }
         assertTrue(i.getToDoList()!=null);
         assertTrue(i.getToDoList().getItemValues().contains(i));
         try {
-            i.uncheckItem();
+            i.uncheckItem(tdl);
         } catch (TooManyThingsToDo tooManyThingsToDo) {
             fail();
         }
@@ -56,10 +59,11 @@ public class ItemTest {
 
     @Test
     public void uncheckCheckedOffItemTest() {
+        ToDoList tdl = new ToDoList();
         i.checkOffItem();
         assertTrue(i.getToDoList()==null);
         try {
-            i.uncheckItem();
+            i.uncheckItem(tdl);
         } catch (TooManyThingsToDo tooManyThingsToDo) {
             fail();
         }
@@ -106,8 +110,9 @@ public class ItemTest {
 
     @Test
     public void getUncheckedItemStatusTest() {
+        ToDoList tdl = new ToDoList();
         try {
-            i.uncheckItem();
+            i.uncheckItem(tdl);
         } catch (TooManyThingsToDo tooManyThingsToDo) {
             fail();
         }
