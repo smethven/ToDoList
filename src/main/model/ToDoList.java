@@ -10,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class ToDoList implements Loadable, Saveable {
+public class ToDoList extends AbstractSubject {
     // Each item's key is it's item string
     private Map<String, Item> items;
 
@@ -19,6 +19,8 @@ public class ToDoList implements Loadable, Saveable {
     // CONSTRUCTOR
     public ToDoList() {
         items = new HashMap<>();
+        ConcreteObserver observer = new ConcreteObserver();
+        addObserver(observer);
     }
 
     // SETTERS
@@ -32,6 +34,7 @@ public class ToDoList implements Loadable, Saveable {
             }
             items.put(item.getItemText(), item);
             item.uncheckItem(this);
+            notify(this);
         }
     }
 
@@ -74,7 +77,7 @@ public class ToDoList implements Loadable, Saveable {
 
 
     //Uses code from FileReaderWriter
-    @Override
+    //@Override
     public void load(String file) throws IOException {
         List<String> lines = Files.readAllLines(Paths.get(file));
         for (String line : lines) {
@@ -95,7 +98,7 @@ public class ToDoList implements Loadable, Saveable {
     }
 
     //Uses code from FileReaderWriter
-    @Override
+    //@Override
     public void save() throws FileNotFoundException, UnsupportedEncodingException {
         PrintWriter writer = new PrintWriter("outputfile.txt","UTF-8");
         for (Item i : items.values()) {

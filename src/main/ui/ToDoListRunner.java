@@ -10,11 +10,13 @@ import model.Item;
 import model.RegularItem;
 import model.ToDoList;
 import model.UrgentItem;
+import network.WeatherReader;
 
 public class ToDoListRunner {
     private static ToDoList myToDoList = new ToDoList();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        WeatherReader.main(args);
         try {
             myToDoList.load("inputfile.txt");
         } catch (IOException e) {
