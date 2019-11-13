@@ -25,5 +25,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" exported="" scope="TEST" name="java-json" level="project" />
+    <orderEntry type="library" name="java-json" level="project" />
   </component>
 </module>
