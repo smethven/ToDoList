@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 //with code taken from https://www.codexpedia.com/java/sample-code-for-parsing-json-string-in-java/
 
 public class WeatherParser {
