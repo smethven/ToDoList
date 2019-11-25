@@ -6,6 +6,8 @@ public class RegularItem extends Item {
         super();
     }
 
+    //MODIFIES: this
+    //EFFECTS: changes this to checked off (true), and prints to the console
     @Override
     public void checkOffItem() {
         if (toDoList != null) {

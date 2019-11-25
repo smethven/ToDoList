@@ -30,8 +30,9 @@ public abstract class Item {
     // EFFECTS: changes this to checked off (true)
     public abstract void checkOffItem();
 
-    // MODIFIES: this
-    // EFFECTS: changes this to unchecked off (false)
+    // MODIFIES: this, ToDoList
+    // EFFECTS: changes this to unchecked off (false) if it's not already unchecked
+    //          sets toDoList to tdl, and adds this to it's item list
     public void uncheckItem(ToDoList tdl) throws TooManyThingsToDo {
         if (toDoList == null) {
             this.status = false;
@@ -40,12 +41,8 @@ public abstract class Item {
         }
     }
 
-    public ToDoList getToDoList() {
-        return toDoList;
-    }
-
-    // MODIFIES: this
-    // EFFECTS: sets itemText to inputted itemText
+    // MODIFIES: this, toDoList
+    // EFFECTS: sets itemText to inputted itemText, which in turn changes its key in toDoList
     public void setItemText(String itemText) {
         toDoList.getItems().remove(this.itemText, this);
         this.itemText = itemText;
@@ -75,6 +72,10 @@ public abstract class Item {
         return this.category;
     }
 
+    public ToDoList getToDoList() {
+        return toDoList;
+    }
+
     //MODIFIES: this
     //EFFECTS: sets up a loaded item with the correct fields
     public void setUpLoadedItem(ArrayList<String> partsOfLine) {
@@ -82,6 +83,7 @@ public abstract class Item {
         this.setCategory(partsOfLine.get(2));
     }
 
+    // EFFECTS: returns true if o has the same status, text and category as this
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -102,6 +104,7 @@ public abstract class Item {
         return category.equals(item.category);
     }
 
+    //EFFECTS: creates a hashcode based on status, text and category of this
     @Override
     public int hashCode() {
         int result = (status ? 1 : 0);

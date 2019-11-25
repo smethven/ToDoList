@@ -6,6 +6,8 @@ public class UrgentItem extends Item {
         category = "URGENT!: " + category;
     }
 
+    //MODIFIES: this
+    //EFFECTS: changes this to checked off (true), and prints to the console
     @Override
     public void checkOffItem() {
         if (toDoList != null) {
@@ -16,6 +18,8 @@ public class UrgentItem extends Item {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets this.category to inputted category with "URGENT!: " in front
     @Override
     public void setCategory(String category) {
         if (category.contains("URGENT!: ")) {

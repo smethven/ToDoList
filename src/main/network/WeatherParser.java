@@ -15,6 +15,9 @@ public class WeatherParser {
     static final String KEY_TEMP = "temp";
     static final int TEMP_INDEX = 0;
 
+    // MODIFIES: JSONObject
+    // EFFECTS: gets the temperature and current weather description from OpenWeatherMap JSON data
+    //          prints that to the console
     public String weatherParser(String jsonData) throws JSONException {
         JSONObject forecastJson = new JSONObject(jsonData);
         JSONObject mainObject = (JSONObject) forecastJson.get(KEY_MAIN);

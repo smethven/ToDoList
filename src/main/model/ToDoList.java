@@ -23,7 +23,6 @@ public class ToDoList extends AbstractSubject {
         addObserver(observer);
     }
 
-    // SETTERS
 
     // MODIFIES: this
     // EFFECTS: adds given item to items with it's item string as its key
@@ -69,13 +68,16 @@ public class ToDoList extends AbstractSubject {
     }
 
     // MODIFIES: this and Item object
-    // EFFECTS: checks off Item with given itemText
+    // EFFECTS: checks off Item with given itemText, which changes the item's status to true
     public void checkOffItemWithText(String text) {
         Item item = items.get(text);
         item.checkOffItem();
     }
 
-
+    //MODIFIES: this, Item
+    //EFFECTS: creates an Item which gets its text and category from the loaded file
+    //         adds the item to this ToDoList's list or throws an exception if there are too many items
+    //         does this for each line in the file
     //Uses code from FileReaderWriter
     //@Override
     public void load(String file) throws IOException {
@@ -97,6 +99,8 @@ public class ToDoList extends AbstractSubject {
         }
     }
 
+    // MODIFIES: PrintWriter
+    // EFFECTS: saves the current to do list by saving each item's status, text and category on a line in outputfile
     //Uses code from FileReaderWriter
     //@Override
     public void save() throws FileNotFoundException, UnsupportedEncodingException {
@@ -108,6 +112,7 @@ public class ToDoList extends AbstractSubject {
         writer.close();
     }
 
+    // EFFECTS: split a string where ever it finds a "/" and puts the splits into a new ArrayList
     //Adapted from FileReaderWriter
     public static ArrayList<String> splitOnSlash(String line) {
         String[] splits = line.split("/", 3);
