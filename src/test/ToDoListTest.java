@@ -278,6 +278,7 @@ public class ToDoListTest {
         addNineWithTryCatch();
         tdl.checkOffItemWithText("E");
         assertTrue(i5.isCheckedOff());
+        assertFalse((tdl.getItems().containsValue(i5)));
     }
 
     @Test

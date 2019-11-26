@@ -72,6 +72,16 @@ public class ToDoList extends AbstractSubject {
     public void checkOffItemWithText(String text) {
         Item item = items.get(text);
         item.checkOffItem();
+        removeItem(item);
+    }
+
+    public String keysForDisplay() {
+        Collection<String> keys = getItemKeys();
+        String keysForDisplay = "";
+        for (String key: keys) {
+            keysForDisplay = keysForDisplay.concat(key + "\n");
+        }
+        return keysForDisplay;
     }
 
     //MODIFIES: this, Item
