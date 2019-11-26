@@ -1,6 +1,5 @@
 package ui;
 
-import apple.laf.JRSUIUtils;
 import exceptions.TooManyThingsToDo;
 import model.Item;
 import model.RegularItem;
@@ -15,8 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class ToDoListGUI extends JFrame implements ActionListener {
     private JLabel enterTextLabel;
