@@ -75,6 +75,7 @@ public class ToDoList extends AbstractSubject {
         removeItem(item);
     }
 
+    //EFFECTS: creates a string of all the keys in the items map with a new line between each key
     public String keysForDisplay() {
         Collection<String> keys = getItemKeys();
         String keysForDisplay = "";

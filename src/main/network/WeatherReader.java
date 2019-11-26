@@ -12,6 +12,7 @@ import java.net.URL;
 
 public class WeatherReader {
 
+    // EFFECTS: prints the string of the temperature and forecast currently in Vancouver
     public static void main(String[] args) throws MalformedURLException, IOException {
 
         BufferedReader br = null;

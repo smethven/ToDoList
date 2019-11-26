@@ -84,8 +84,9 @@ public class ToDoListGUI extends JFrame implements ActionListener {
         return addItemBtn;
     }
 
-    //this is the method that runs when Swing registers an action on an element
-    //for which this class is an ActionListener
+    //MODIFIES: this
+    //EFFECTS: performs the necessary action when certain buttons are pressed
+    //         either adds/removes items from the toDoList, or displays the toDoList(thereby modifies display area)
     public void actionPerformed(ActionEvent e) {
         String text = enterTextField.getText();
         if (e.getActionCommand().equals("addItem")) {
@@ -152,6 +153,7 @@ public class ToDoListGUI extends JFrame implements ActionListener {
         }
     }
 
+    //EFFECTS: runs the to do list GUI
     public static void main(String[] args) {
         new ToDoListGUI();
     }

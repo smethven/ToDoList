@@ -15,6 +15,8 @@ import network.WeatherReader;
 public class ToDoListRunner {
     private static ToDoList myToDoList = new ToDoList();
 
+    // EFFECTS: displays the current weather in Vancouver, then loads current ToDoList,
+    // then starts a loop asking for user input
     public static void main(String[] args) throws IOException {
         WeatherReader.main(args);
         try {
