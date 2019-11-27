@@ -74,7 +74,7 @@ public class ToDoList extends AbstractSubject {
         item.checkOffItem();
         removeItem(item);
     }
-    
+
     // EFFECTS: creates a string of all regular item keys in the items map with a new line in between each
     public String regKeysForDisplay() {
         String regKeys = "";

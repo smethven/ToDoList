@@ -2,6 +2,7 @@ import exceptions.TooManyThingsToDo;
 import model.Item;
 import model.RegularItem;
 import model.ToDoList;
+import model.UrgentItem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -366,6 +367,26 @@ public class ToDoListTest {
             fail();
         } catch (TooManyThingsToDo tooManyThingsToDo) {
         }
+    }
+
+    @Test
+    void testRegKeysForDisplay() {
+        addNineWithTryCatch();
+        String keys = tdl.regKeysForDisplay();
+        assertEquals("A\nB\nC\nD\nE\nF\nG\nH\nI\n", keys);
+    }
+
+    @Test
+    void testUrgKeysForDisplay() {
+        Item i = new UrgentItem();
+        i.setItemText("A");
+        try {
+            tdl.addItem(i);
+        } catch (TooManyThingsToDo tooManyThingsToDo) {
+            tooManyThingsToDo.printStackTrace();
+        }
+        String keys = tdl.urgKeysForDisplay();
+        assertEquals("A\n", keys);
     }
 
 }
