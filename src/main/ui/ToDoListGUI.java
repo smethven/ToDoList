@@ -9,6 +9,10 @@ import model.UrgentItem;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +22,8 @@ import java.io.IOException;
 public class ToDoListGUI extends JFrame implements ActionListener {
     private JLabel enterTextLabel;
     private JTextField enterTextField;
-    private JTextArea displayArea;
+    private JTextPane display;
+    private StyledDocument doc;
     private JLabel displayLabel;
     private ToDoList tdl = new ToDoList();
 
@@ -38,17 +43,16 @@ public class ToDoListGUI extends JFrame implements ActionListener {
         JButton displayBtn = setUpButton("Display to do list", "display");
         enterTextLabel = new JLabel("Enter item text");
         enterTextField = new JTextField();
-        displayArea = new JTextArea();
+        display = new JTextPane();
+        doc = display.getStyledDocument();
         displayLabel = new JLabel("To Do List Display Area");
-        JScrollPane scrollPane = new JScrollPane(displayArea);
-        displayArea.setEditable(false);
         layout.setHorizontalGroup(
                 layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                                 .addComponent(enterTextLabel)
                                 .addComponent(enterTextField)
                                 .addComponent(displayLabel)
-                                .addComponent(displayArea))
+                                .addComponent(display))
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addComponent(addItemBtn)
                                 .addComponent(addUrgentItemBtn)
@@ -61,7 +65,7 @@ public class ToDoListGUI extends JFrame implements ActionListener {
                                 .addComponent(enterTextLabel)
                                 .addComponent(enterTextField)
                                 .addComponent(displayLabel)
-                                .addComponent(displayArea))
+                                .addComponent(display))
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(addItemBtn)
                                 .addComponent(addUrgentItemBtn)
@@ -98,7 +102,23 @@ public class ToDoListGUI extends JFrame implements ActionListener {
             tdl.checkOffItemWithText(text);
             playSound();
         } else if (e.getActionCommand().equals("display")) {
-            displayArea.setText(tdl.keysForDisplay());
+            display.setText("");
+            Style style = display.addStyle("style", null);
+            insertItemsWithColour(style, Color.red, tdl.urgKeysForDisplay());
+            insertItemsWithColour(style, Color.BLACK, tdl.regKeysForDisplay());
+        }
+    }
+
+    private void insertItemsWithColour(Style style, Color red, String s) {
+        StyleConstants.setForeground(style, red);
+        tryInsertKeys(style, s);
+    }
+
+    private void tryInsertKeys(Style style, String s) {
+        try {
+            doc.insertString(doc.getLength(), s, style);
+        } catch (BadLocationException ex) {
+            ex.printStackTrace();
         }
     }
 

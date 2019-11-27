@@ -74,15 +74,29 @@ public class ToDoList extends AbstractSubject {
         item.checkOffItem();
         removeItem(item);
     }
-
-    //EFFECTS: creates a string of all the keys in the items map with a new line between each key
-    public String keysForDisplay() {
-        Collection<String> keys = getItemKeys();
-        String keysForDisplay = "";
-        for (String key: keys) {
-            keysForDisplay = keysForDisplay.concat(key + "\n");
+    
+    // EFFECTS: creates a string of all regular item keys in the items map with a new line in between each
+    public String regKeysForDisplay() {
+        String regKeys = "";
+        for (Item item : items.values()) {
+            if (item.getClass() == RegularItem.class) {
+                String key = item.getItemText();
+                regKeys = regKeys.concat(key + "\n");
+            }
         }
-        return keysForDisplay;
+        return regKeys;
+    }
+
+    // EFFECTS: creates a string of all urgent item keys in the items map with a new line in between each
+    public String urgKeysForDisplay() {
+        String urgKeys = "";
+        for (Item item : items.values()) {
+            if (item.getClass() == UrgentItem.class) {
+                String key = item.getItemText();
+                urgKeys = urgKeys.concat(key + "\n");
+            }
+        }
+        return urgKeys;
     }
 
     //MODIFIES: this, Item
